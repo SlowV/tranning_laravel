@@ -12,9 +12,18 @@
 */
 
 use Illuminate\Support\Facades\Route;
-
-Route::get('/', function () {
-    return view('welcome');
-});
+use \Illuminate\Support\Facades\Session;
 
 Route::resource('/admin/bakery', 'BakeryController');
+
+Route::get('/admin', function (){
+   return view('admin.bakery.dashboard');
+});
+
+
+//Switch language
+
+Route::get('locale/{locale}', function ($locale){
+    Session::put('locale', $locale);
+    return redirect()->back();
+})->name('locale');
